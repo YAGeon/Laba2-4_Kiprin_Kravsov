@@ -1,0 +1,168 @@
+﻿<Window x:Class="Laba2_4_Kiprin_Kravsov.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Laba2_4_Kiprin_Kravsov"
+        mc:Ignorable="d"
+        Title="Ш.И.З.О.И.Д." Height="450" Width="800">
+
+    <Grid>
+        <TabControl>
+
+            <!--РАЗДЕЛ ПАЦИЕНТОВ-->
+            <TabItem Header="Пациенты">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel >
+                        <Label Content="Поиск:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="SearchByPatient" Margin="5" Background="AliceBlue" Width="300"/>
+                    </DockPanel>
+
+                    <StackPanel Grid.Row="1">
+                        <ListView>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="№" Width="20"/>
+                                    <GridViewColumn Header="Фамилия"/>
+                                    <GridViewColumn Header="Имя"/>
+                                    <GridViewColumn Header="Отчество"/>
+                                    <GridViewColumn Header="Дата рождения"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Content="Добавить" Margin="5"/>
+                    </StackPanel>
+
+                    <Grid Grid.Row="1" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.ColumnSpan="2">
+                            <Label Content="ФИО:"/>
+                            <DockPanel>
+                                <TextBox x:Name="SurnameX" Text="{Binding SurnameBinding}" Width="110" Margin="5" />
+                                <TextBox x:Name="NameX" Text="{Binding NameBinding}" Width="110" Margin="5" />
+                                <TextBox x:Name="PatronymicX" Text="{Binding PatronymicBinding}" Width="110" Margin="5" HorizontalAlignment="Left"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <Label Content="Дата рождения:" Margin="5"/>
+                                <TextBox x:Name="DRX" Text="{Binding DateBinding}" Margin="5"/>
+                            </DockPanel>
+                            <Label Content="Мед карта:"/>
+                            <DockPanel>
+                                <StackPanel>
+                                    <Label Content="№:"/>
+                                    <Label Content="Место регистрации:"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBox Margin="5"/>
+                                    <TextBox Margin="5"/>
+                                </StackPanel>
+                            </DockPanel>
+                            <Button Content="Записи" Margin="5"/>
+                            <Label Content="Контактые данные опекуна:"/>
+                            <DockPanel>
+                                <StackPanel>
+                                    <Label Content="Номер телефона:" VerticalAlignment="Center"/>
+                                    <Label Content="Почтовый индекс:" VerticalAlignment="Center"/>
+                                    <Label Content="Адрес проживания:" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBox Margin="5" VerticalAlignment="Center"/>
+                                    <TextBox Margin="5" VerticalAlignment="Center"/>
+                                    <TextBox Margin="5" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </StackPanel>
+                        <Button Content="Сохранить" Margin="5" Grid.Row="2"/>
+                        <Button Content="Сброс" Margin="5" Grid.Row ="2" Grid.Column="1"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!--РАЗДЕЛ ОТЧЁТОВ-->
+            <TabItem Header="Отчёты">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel>
+                        <Label Content="Пациент:" VerticalAlignment="Center"/>
+                        <Label Content="{Binding FIO}" VerticalAlignment="Center" Width="100"/>
+                        <Label Content="С" VerticalAlignment="Center"/>
+                        <DatePicker VerticalAlignment="Center"/>
+                        <Label Content="До" VerticalAlignment="Center"/>
+                        <DatePicker VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </DockPanel>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <DockPanel>
+                                <Label Content="Поиск:"/>
+                                <TextBox Background="AliceBlue" Width="180"/>
+                                <Button Content="Найти" HorizontalAlignment="Left"/>
+                            </DockPanel>
+
+                            <ListView>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="№" Width="20"/>
+                                        <GridViewColumn Header="Фамилия"/>
+                                        <GridViewColumn Header="Имя"/>
+                                        <GridViewColumn Header="Отчество"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+
+                        <ListView Grid.Column="1">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Дата посещения" Width="100"/>
+                                    <GridViewColumn Header="Врач" Width="100"/>
+                                    <GridViewColumn Header="Номер кабинета" Width="100"/>
+                                    <GridViewColumn Header="Процедура" Width="100"/>
+                                    <GridViewColumn Header="Результат процедуры" Width="130"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Сформировать" Margin="5"/>
+                        <Button Content="Скачать" Grid.Column="1" Margin="5"/>
+                        <Button Content="Сбросить" Grid.Column="2" Margin="5"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
