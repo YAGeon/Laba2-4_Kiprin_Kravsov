@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:Laba2_4_Kiprin_Kravsov"
         mc:Ignorable="d"
         Title="Ш.И.З.О.И.Д." Height="450" Width="800">
-
     <Grid>
         <TabControl>
 
@@ -25,21 +24,22 @@
                     <DockPanel >
                         <Label Content="Поиск:" VerticalAlignment="Center"/>
                         <TextBox x:Name="SearchByPatient" Margin="5" Background="AliceBlue" Width="300"/>
+                        <Button Content="Найти" Height="30" Click="SearcPacient_Click"/>
                     </DockPanel>
 
                     <StackPanel Grid.Row="1">
-                        <ListView>
+                        <ListView ItemsSource="{Binding Pacients}" SelectedItem="{Binding SelectedTestPacient}" MouseDoubleClick="ListView_MouseDoubleClick">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="№" Width="20"/>
-                                    <GridViewColumn Header="Фамилия"/>
-                                    <GridViewColumn Header="Имя"/>
-                                    <GridViewColumn Header="Отчество"/>
-                                    <GridViewColumn Header="Дата рождения"/>
+                                    <GridViewColumn Header="№" Width="20" DisplayMemberBinding="{Binding NumberPacient}"/>
+                                    <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding SurnamePacient}"/>
+                                    <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding NamePacient}"/>
+                                    <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding PatronymicPacient}"/>
+                                    <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding DateBithday}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button Content="Добавить" Margin="5"/>
+                        <Button Content="Добавить" Margin="5" Click="AddPacient_Click"/>
                     </StackPanel>
 
                     <Grid Grid.Row="1" Grid.Column="2">
@@ -54,13 +54,13 @@
                         <StackPanel Grid.ColumnSpan="2">
                             <Label Content="ФИО:"/>
                             <DockPanel>
-                                <TextBox x:Name="SurnameX" Text="{Binding SurnameBinding}" Width="110" Margin="5" />
-                                <TextBox x:Name="NameX" Text="{Binding NameBinding}" Width="110" Margin="5" />
-                                <TextBox x:Name="PatronymicX" Text="{Binding PatronymicBinding}" Width="110" Margin="5" HorizontalAlignment="Left"/>
+                                <TextBox x:Name="SurnameX" Width="110" Margin="5" />
+                                <TextBox x:Name="NameX" Width="110" Margin="5" />
+                                <TextBox x:Name="PatronymicX" Width="110" Margin="5" HorizontalAlignment="Left"/>
                             </DockPanel>
                             <DockPanel>
                                 <Label Content="Дата рождения:" Margin="5"/>
-                                <TextBox x:Name="DRX" Text="{Binding DateBinding}" Margin="5"/>
+                                <TextBox x:Name="DateBithdayX" Margin="5"/>
                             </DockPanel>
                             <Label Content="Мед карта:"/>
                             <DockPanel>
@@ -69,11 +69,11 @@
                                     <Label Content="Место регистрации:"/>
                                 </StackPanel>
                                 <StackPanel>
-                                    <TextBox Margin="5"/>
-                                    <TextBox Margin="5"/>
+                                    <TextBox x:Name="MCNumperX" Margin="5"/>
+                                    <TextBox x:Name="MCRegisterX" Margin="5"/>
                                 </StackPanel>
                             </DockPanel>
-                            <Button Content="Записи" Margin="5"/>
+                            <Button Content="Записи" Margin="5" Click="MCFull_Ckick"/>
                             <Label Content="Контактые данные опекуна:"/>
                             <DockPanel>
                                 <StackPanel>
@@ -82,20 +82,20 @@
                                     <Label Content="Адрес проживания:" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel>
-                                    <TextBox Margin="5" VerticalAlignment="Center"/>
-                                    <TextBox Margin="5" VerticalAlignment="Center"/>
-                                    <TextBox Margin="5" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="TelephoneX" Margin="5" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="MaileX" Margin="5" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="AdressX" Margin="5" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </DockPanel>
                         </StackPanel>
-                        <Button Content="Сохранить" Margin="5" Grid.Row="2"/>
-                        <Button Content="Сброс" Margin="5" Grid.Row ="2" Grid.Column="1"/>
+                        <Button Content="Сохранить" Margin="5" Grid.Row="2" Click="UpdatePacient_Click"/>
+                        <Button Content="Сброс" Margin="5" Grid.Row ="2" Grid.Column="1" Click="ClearInfoPacient_Click"/>
                     </Grid>
                 </Grid>
             </TabItem>
 
             <!--РАЗДЕЛ ОТЧЁТОВ-->
-            <TabItem Header="Отчёты">
+            <TabItem Header="Отчёты" Height="20" VerticalAlignment="Top">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -105,11 +105,11 @@
 
                     <DockPanel>
                         <Label Content="Пациент:" VerticalAlignment="Center"/>
-                        <Label Content="{Binding FIO}" VerticalAlignment="Center" Width="100"/>
+                        <Label x:Name="FIOX" VerticalAlignment="Center" Width="150"/>
                         <Label Content="С" VerticalAlignment="Center"/>
-                        <DatePicker VerticalAlignment="Center"/>
+                        <DatePicker x:Name="DateStart" VerticalAlignment="Center"/>
                         <Label Content="До" VerticalAlignment="Center"/>
-                        <DatePicker VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <DatePicker x:Name="DateEnd" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     </DockPanel>
 
                     <Grid Grid.Row="1">
@@ -121,45 +121,37 @@
                         <StackPanel>
                             <DockPanel>
                                 <Label Content="Поиск:"/>
-                                <TextBox Background="AliceBlue" Width="180"/>
-                                <Button Content="Найти" HorizontalAlignment="Left"/>
+                                <TextBox Background="AliceBlue" Width="115"/>
+                                <Button Content="Найти" HorizontalAlignment="Left" Click="SearcPacient_Click"/>
                             </DockPanel>
 
-                            <ListView>
+                            <ListView ItemsSource="{Binding Pacients}" SelectedItem="{Binding SelectedTestPacient}" MouseDoubleClick="ListView2_MouseDoubleClick">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Header="№" Width="20"/>
-                                        <GridViewColumn Header="Фамилия"/>
-                                        <GridViewColumn Header="Имя"/>
-                                        <GridViewColumn Header="Отчество"/>
+                                        <GridViewColumn Header="№" Width="20" DisplayMemberBinding="{Binding NumberPacient}"/>
+                                        <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding SurnamePacient}"/>
+                                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding NamePacient}"/>
+                                        <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding PatronymicPacient}"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
                         </StackPanel>
 
-                        <ListView Grid.Column="1">
+                        <ListView Grid.Column="1" ItemsSource="{Binding PacientOtchets}" SelectedItem="{Binding SelectedTestOthcet}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Дата посещения" Width="100"/>
-                                    <GridViewColumn Header="Врач" Width="100"/>
-                                    <GridViewColumn Header="Номер кабинета" Width="100"/>
-                                    <GridViewColumn Header="Процедура" Width="100"/>
-                                    <GridViewColumn Header="Результат процедуры" Width="130"/>
+                                    <GridViewColumn Header="Дата посещения" Width="100" DisplayMemberBinding="{Binding Date}"/>
+                                    <GridViewColumn Header="Врач" Width="100" DisplayMemberBinding="{Binding NameVrach}"/>
+                                    <GridViewColumn Header="Номер кабинета" Width="100" DisplayMemberBinding="{Binding CabNum}"/>
+                                    <GridViewColumn Header="Процедура" Width="100" DisplayMemberBinding="{Binding Procedur}"/>
+                                    <GridViewColumn Header="Результат процедуры" Width="130" DisplayMemberBinding="{Binding ResultProcedur}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </Grid>
 
                     <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button Content="Сформировать" Margin="5"/>
-                        <Button Content="Скачать" Grid.Column="1" Margin="5"/>
-                        <Button Content="Сбросить" Grid.Column="2" Margin="5"/>
+                        <Button Content="Скачать" Grid.Column="0" Margin="5" Click="CreatPDF_Click"/>
                     </Grid>
                 </Grid>
             </TabItem>
